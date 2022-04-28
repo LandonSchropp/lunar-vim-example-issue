@@ -1,16 +1,35 @@
 #! /bin/bash
 
+# Generates a file with random content.
+# $1: The path of the file.
+function generate_random_file {
+  echo "$RANDOM" > "$1"
+}
+
 # Generates random files.
 # $1: The directory where the generated files should be stored.
 # $2: The number of files to generate.
-function generate_files {
+function generate_random_files {
   for i in $(seq 1 "$2"); do
-    echo "$RANDOM" > "$1/$(printf %04d "$i").txt"
+    generate_random_file "$1/$(printf %04d "$i").txt"
+  done
+}
+
+# Generates a bunch of commits with random changes.
+# $1: The path of the file to commit.
+# $2: The number of commits to generate.
+function generate_random_commits {
+  for i in $(seq 1 "$2"); do
+    generate_random_file "$1"
+    git add "$1"
+    git commit -m "Update $1 randomly"
   done
 }
 
 mkdir -p files
 mkdir -p ignored
 
-generate_files files 10000
-generate_files ignored 10000
+generate_random_files files 10000
+generate_random_files ignored 10000
+
+generate_random_commits "example.txt" 10000
