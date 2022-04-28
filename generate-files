@@ -5,12 +5,12 @@
 # $2: The number of files to generate.
 function generate_files {
   for i in $(seq 1 "$2"); do
-    echo "$RANDOM" > "$1/$(printf %03d "$i").txt"
+    echo "$RANDOM" > "$1/$(printf %04d "$i").txt"
   done
 }
 
 mkdir -p files
 mkdir -p ignored
 
-generate_files files 1000
-generate_files ignored 1000
+generate_files files 10000
+generate_files ignored 10000
