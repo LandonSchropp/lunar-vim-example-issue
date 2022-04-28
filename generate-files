@@ -1,0 +1,16 @@
+#! /bin/bash
+
+# Generates random files.
+# $1: The directory where the generated files should be stored.
+# $2: The number of files to generate.
+function generate_files {
+  for i in $(seq 1 "$2"); do
+    echo "$RANDOM" > "$1/$(printf %03d "$i").txt"
+  done
+}
+
+mkdir -p files
+mkdir -p ignored
+
+generate_files files 1000
+generate_files ignored 1000
